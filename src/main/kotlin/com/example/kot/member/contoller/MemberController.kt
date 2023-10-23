@@ -1,5 +1,6 @@
 package com.example.kot.member.contoller
 
+import com.example.kot.common.dto.BaseResponse
 import com.example.kot.member.dto.MemberRequestDto
 import com.example.kot.member.service.MemberService
 import jakarta.validation.Valid
@@ -17,8 +18,10 @@ class MemberController(
 ) {
 
     @PostMapping("/signup")
-    fun signup(@RequestBody @Valid memberRequestDto: MemberRequestDto): String {
+    fun signup(@RequestBody @Valid memberRequestDto: MemberRequestDto): BaseResponse<Unit> {
 
-        return memberService.signup(memberRequestDto)
+        val resultMsg: String = memberService.signup(memberRequestDto)
+
+        return BaseResponse(message =resultMsg)
     }
 }

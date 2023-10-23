@@ -1,5 +1,6 @@
 package com.example.kot.member.service
 
+import com.example.kot.common.exception.InvalidInputException
 import com.example.kot.member.dto.MemberRequestDto
 import com.example.kot.member.entity.Member
 import com.example.kot.member.repository.MemberRepository
@@ -16,17 +17,9 @@ class MemberService(
         var member: Member? = memberRepository.findByLoginId(memberRequestDto.loginId)
 
         if (member != null)
-            return "이미 등록된 ID 입니다."
+            throw InvalidInputException("loginId", "이미 등록된 ID입니다.")
 
-        member = Member(
-            null,
-            memberRequestDto.loginId,
-            memberRequestDto.password,
-            memberRequestDto.name,
-            memberRequestDto.birthDate,
-            memberRequestDto.gender,
-            memberRequestDto.email
-        )
+        member = memberRequestDto.toEntity();
 
         memberRepository.save(member)
 

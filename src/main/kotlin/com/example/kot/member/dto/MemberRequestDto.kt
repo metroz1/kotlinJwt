@@ -2,11 +2,11 @@ package com.example.kot.member.dto
 
 import com.example.kot.common.annotation.ValidEnum
 import com.example.kot.common.status.Gender
+import com.example.kot.member.entity.Member
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
-import org.springframework.cglib.core.Local
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -67,6 +67,9 @@ data class MemberRequestDto(
         get() = _email!!
     private fun String.toLocalDate(): LocalDate =
         LocalDate.parse(this, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+    fun toEntity(): Member =
+        Member(id, loginId, password, name, birthDate, gender, email)
 }
 
 
