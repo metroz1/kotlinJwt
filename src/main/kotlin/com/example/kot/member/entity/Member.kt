@@ -1,4 +1,4 @@
-package com.example.kot.Member.entity
+package com.example.kot.member.entity
 
 import com.example.kot.common.status.Gender
 import jakarta.persistence.*
@@ -18,9 +18,12 @@ class Member (
     val loginId: String,
 
     @Column(nullable = false, length = 100)
-    val name: String,
+    val password: String,
 
     @Column(nullable = false, length = 10)
+    val name: String,
+
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     val birthDate: LocalDate,
 
