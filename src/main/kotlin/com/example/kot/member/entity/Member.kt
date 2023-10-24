@@ -1,6 +1,7 @@
 package com.example.kot.member.entity
 
 import com.example.kot.common.status.Gender
+import com.example.kot.common.status.ROLE
 import jakarta.persistence.*
 import java.time.LocalDate
 
@@ -33,4 +34,25 @@ class Member (
 
     @Column(nullable = false, length = 30)
     val email: String,
+) {
+
+    @OneToMany(mappedBy = "member")
+    val memberRole: List<MemberRole>? = null
+}
+
+@Entity
+class MemberRole(
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null,
+
+    @Column(nullable = false, length = 30)
+    @Enumerated(EnumType.STRING)
+    val role: ROLE,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_ID")
+    val member: Member,
+
 )
